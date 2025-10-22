@@ -1,24 +1,53 @@
 <script>
-    export default { 
-        // Add Code Here to complete the task
-        // Note: DO NOT USE "eval()". In security, "eval" is considered "evil"!!!
+export default {
+  data() {
+    return {
+      x: 0,
+      y: 0,
+      operators: ["+", "-", "*", "/", "%"],
+      selectedOp: ""
     }
+  },
+  computed: {
+    result() {
+      let total = 0
+      const { x, y, selectedOp } = this
+      switch (selectedOp) {
+        case "+": total = x + y; break
+        case "-": total = x - y; break
+        case "*": total = x * y; break
+        case "/": total = y !== 0 ? x / y : "Error"; break
+        case "%": total = y !== 0 ? x % y : "Error"; break
+      }
+      return total
+    }
+  }
+}
 </script>
 
 <template>
-    <p>x <input v-model.number="x"></p>
+  <div>
+    <p>x <input v-model.number="x" type="number" /></p>
+
     <select v-model="selectedOp">
-        <option v-for="op in operators" >{{ op }}</option>
+      <option v-for="op in operators">
+        {{ op }}
+      </option>
     </select>
-    <p>y <input v-model.number="y"></p>
-    
+
+    <p>y <input v-model.number="y" type="number" /></p>
+
     <p>---------------------</p>
 
-    <p>= {{result}}</p>
+    <p>= {{ result }}</p>
+  </div>
 </template>
 
 <style scoped>
-    p, input { font-family: monospace; }
-    p { white-space: pre; }
-
+p, input {
+  font-family: monospace;
+}
+p {
+  white-space: pre;
+}
 </style>
